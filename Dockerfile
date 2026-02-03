@@ -1,13 +1,15 @@
+#Build
 FROM node:24.4
 WORKDIR /frontend
-
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 COPY . .
-# RUN rm -rf /frontend/node_modules
+RUN npm run build
 
-
-RUN npm ci
-
-# this might need to change
-CMD ["npm", "run", "dev"]
+#Run
+FROM node:24.4
+WORKDIR /frontend
+COPY --from=build /frontend/node_modules ./node_modules
+COPY --from=build /frontend .
+EXPOSE 3000
+CMD ["npm", "start"]
