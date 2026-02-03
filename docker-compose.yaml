@@ -2,14 +2,13 @@ version: "5.0"
 
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - 5173:5173
-    command: npm run dev
-    develop:
-      watch:
-        - action: sync
-          path: ./frontend
-          target: /frontend
-          ignore:
-            - node_modules
+      - 3000:3000
+    volumes:
+      - .:/frontend
+      - /frontend/node_modules
+    environment:
+      NODE_ENV: development
