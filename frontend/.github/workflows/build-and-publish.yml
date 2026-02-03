@@ -1,0 +1,26 @@
+name: CI/CD
+
+on:
+  # Build & test on pull requests into main
+  pull_request:
+    branches: [ main ]
+
+  # Build, test, and publish on tag pushes (e.g. v1.0.0)
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+
